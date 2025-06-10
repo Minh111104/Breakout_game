@@ -41,3 +41,7 @@ class Score(Turtle):
     def you_win(self):
         self.goto(0, 0)
         self.write("YOU WIN!", align="center", font=FONT)
+
+    def display_final_score(self):
+        self.goto(0, -100)
+        self.write(f"You scored: {self.score}", align="center", font=FONT)
