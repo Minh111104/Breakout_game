@@ -21,6 +21,13 @@ def clear_message(msg_turtle):
     msg_turtle.hideturtle()
 
 def play_game(screen):
+    # Clear everything from previous game
+    screen.clearscreen()
+    screen.bgcolor("black")
+    screen.setup(width=800, height=500)
+    screen.title("Breakout")
+    screen.tracer(0)
+
     paddle = Paddle()
     ball = Ball()
     block = Blocks()
@@ -68,10 +75,12 @@ def play_game(screen):
                 score.update_scoreboard()
             if len(block.blocks) == 0:
                 score.you_win()
+                score.display_final_score()
                 game_is_on = False
                 break
 
     score.game_over()
+    score.display_final_score()
 
     # Show restart message
     restart_msg = show_message(screen, "Press 'SPACE' to Restart or 'ESC' to Quit")
