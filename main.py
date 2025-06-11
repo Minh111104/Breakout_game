@@ -20,7 +20,7 @@ def clear_message(msg_turtle):
     msg_turtle.clear()
     msg_turtle.hideturtle()
 
-def play_game(screen):
+def play_game(screen, score):
     # Clear everything from previous game
     screen.clearscreen()
     screen.bgcolor("black")
@@ -32,7 +32,8 @@ def play_game(screen):
     ball = Ball()
     block = Blocks()
     block.create_blocks()
-    score = Score()
+    score.score = 0
+    score.hearts = 5
     score.update_scoreboard()
 
     screen.listen()
@@ -71,8 +72,7 @@ def play_game(screen):
                 ball.bounce_y()
                 b.hideturtle()
                 block.blocks.remove(b)
-                score.score += 10
-                score.update_scoreboard()
+                score.add_score(10)
             if len(block.blocks) == 0:
                 score.you_win()
                 score.display_final_score()
@@ -108,6 +108,7 @@ def main():
     screen.setup(width=800, height=500)
     screen.title("Breakout")
     screen.tracer(0)
+    score = Score()  # Create Score ONCE
 
     try:
         # Show start screen
@@ -128,7 +129,7 @@ def main():
             time.sleep(0.05)
 
         while True:
-            play_game(screen)
+            play_game(screen, score)  # Pass score object
 
     except (turtle.Terminator, tkinter.TclError):
         print("Turtle graphics window closed.")
